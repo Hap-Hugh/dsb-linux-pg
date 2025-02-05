@@ -10,6 +10,7 @@ See distcomp.c for details
 #define first_names_male	1
 #define first_names_female	2
 #define first_names_unified	3
+#define first_names_	4
 
 /* aliases for values/weights in the last_names distribution */
 /* NONE DEFINED */
@@ -33,6 +34,7 @@ See distcomp.c for details
 #define calendar_low	8
 #define calendar_medium	9
 #define calendar_high	10
+#define calendar_	11
 
 /* aliases for values/weights in the week_info distribution */
 /* NONE DEFINED */
@@ -50,6 +52,7 @@ See distcomp.c for details
 #define fips_county_tz90	4
 #define fips_county_tz9	5
 #define fips_county_tz1	6
+#define fips_county_›N	7
 
 /* aliases for values/weights in the street_names distribution */
 /* NONE DEFINED */
@@ -95,6 +98,7 @@ See distcomp.c for details
 #define cities_medium	4
 #define cities_small	5
 #define cities_unified	6
+#define cities_	7
 
 /* aliases for values/weights in the categories distribution */
 /* NONE DEFINED */
@@ -145,6 +149,7 @@ See distcomp.c for details
 #define colors_low	3
 #define colors_medium	4
 #define colors_high	5
+#define colors_N	6
 
 /* aliases for values/weights in the brand_syllables distribution */
 /* NONE DEFINED */
@@ -157,6 +162,7 @@ See distcomp.c for details
 #define i_current_price_high	2
 #define i_current_price_medium	3
 #define i_current_price_low	4
+#define i_current_price_	5
 
 /* aliases for values/weights in the i_manufact_id distribution */
 /* NONE DEFINED */

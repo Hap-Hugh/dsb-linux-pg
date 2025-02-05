@@ -40,30 +40,30 @@ define DEP_COUNT = range(random(0, 9, uniform), 30);
 define CATEGORY = sulist(dist(categories,1,1), 3);
 define WHOLESALE_COST = range(random (0, 100, uniform), 20);
 
-select min(i_item_sk)
-      ,min(w_warehouse_name)
-      ,min(d1.d_week_seq)
-      ,min(cs_item_sk)
-      ,min(cs_order_number)
-      ,min(inv_item_sk)
-from catalog_sales
-join inventory on (cs_item_sk = inv_item_sk)
-join warehouse on (w_warehouse_sk=inv_warehouse_sk)
-join item on (i_item_sk = cs_item_sk)
-join customer_demographics on (cs_bill_cdemo_sk = cd_demo_sk)
-join household_demographics on (cs_bill_hdemo_sk = hd_demo_sk)
-join date_dim d1 on (cs_sold_date_sk = d1.d_date_sk)
-join date_dim d2 on (inv_date_sk = d2.d_date_sk)
-join date_dim d3 on (cs_ship_date_sk = d3.d_date_sk)
-left outer join promotion on (cs_promo_sk=p_promo_sk)
-left outer join catalog_returns on (cr_item_sk = cs_item_sk and cr_order_number = cs_order_number)
-where d1.d_week_seq = d2.d_week_seq
-  and inv_quantity_on_hand < cs_quantity
-  and d3.d_date > d1.d_date + interval '3 day'
-  and hd_buy_potential = '[BP]'
-  and d1.d_year = [YEAR]
-  and cd_marital_status = '[MS]'
-  and cd_dep_count between [DEP_COUNT.begin] and [DEP_COUNT.end]
-  and i_category IN ('[CATEGORY.1]', '[CATEGORY.2]', '[CATEGORY.3]')
-  and cs_wholesale_cost BETWEEN [WHOLESALE_COST.begin] AND [WHOLESALE_COST.end]
- ;
+SELECT min(i_item_sk) ,
+       min(w_warehouse_name) ,
+       min(d1.d_week_seq) ,
+       min(cs_item_sk) ,
+       min(cs_order_number) ,
+       min(inv_item_sk)
+FROM catalog_sales
+JOIN inventory ON (cs_item_sk = inv_item_sk)
+JOIN warehouse ON (w_warehouse_sk=inv_warehouse_sk)
+JOIN item ON (i_item_sk = cs_item_sk)
+JOIN customer_demographics ON (cs_bill_cdemo_sk = cd_demo_sk)
+JOIN household_demographics ON (cs_bill_hdemo_sk = hd_demo_sk)
+JOIN date_dim d1 ON (cs_sold_date_sk = d1.d_date_sk)
+JOIN date_dim d2 ON (inv_date_sk = d2.d_date_sk)
+JOIN date_dim d3 ON (cs_ship_date_sk = d3.d_date_sk)
+LEFT OUTER JOIN promotion ON (cs_promo_sk=p_promo_sk)
+LEFT OUTER JOIN catalog_returns ON (cr_item_sk = cs_item_sk
+                                    AND cr_order_number = cs_order_number)
+WHERE d1.d_week_seq = d2.d_week_seq
+  AND inv_quantity_on_hand < cs_quantity
+  AND d3.d_date > d1.d_date + interval '3 day'
+  AND hd_buy_potential = '[BP]'
+  AND d1.d_year = [YEAR]
+  AND cd_marital_status = '[MS]'
+  AND cd_dep_count BETWEEN [DEP_COUNT.begin] AND [DEP_COUNT.end]
+  AND i_category IN ('[CATEGORY.1]', '[CATEGORY.2]', '[CATEGORY.3]')
+  AND cs_wholesale_cost BETWEEN [WHOLESALE_COST.begin] AND [WHOLESALE_COST.end] ;

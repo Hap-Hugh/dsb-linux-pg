@@ -39,23 +39,27 @@
  define STATE=dist(fips_county,3,1);
  define CATEGORY = dist(categories,1,1);
 
- select min(i_item_id),
-        min(s_state),
-        min(ss_quantity),
-        min(ss_list_price),
-        min(ss_coupon_amt),
-        min(ss_sales_price),
-        min(ss_item_sk),
-        min(ss_ticket_number)
- from store_sales, customer_demographics, date_dim, store, item
- where ss_sold_date_sk = d_date_sk and
-       ss_item_sk = i_item_sk and
-       ss_store_sk = s_store_sk and
-       ss_cdemo_sk = cd_demo_sk and
-       cd_gender = '[GEN]' and
-       cd_marital_status = '[MS]' and
-       cd_education_status = '[ES]' and
-       d_year = [YEAR] and
-       s_state = '[STATE]' and
-      i_category  = '[CATEGORY]'
- ;
+
+SELECT min(i_item_id),
+       min(s_state),
+       min(ss_quantity),
+       min(ss_list_price),
+       min(ss_coupon_amt),
+       min(ss_sales_price),
+       min(ss_item_sk),
+       min(ss_ticket_number)
+FROM store_sales,
+     customer_demographics,
+     date_dim,
+     store,
+     item
+WHERE ss_sold_date_sk = d_date_sk
+  AND ss_item_sk = i_item_sk
+  AND ss_store_sk = s_store_sk
+  AND ss_cdemo_sk = cd_demo_sk
+  AND cd_gender = '[GEN]'
+  AND cd_marital_status = '[MS]'
+  AND cd_education_status = '[ES]'
+  AND d_year = [YEAR]
+  AND s_state = '[STATE]'
+  AND i_category = '[CATEGORY]' ;

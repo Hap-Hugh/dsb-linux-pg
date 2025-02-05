@@ -56,9 +56,9 @@ def generate_queries(exec_dir, output_dir, tmp_dir, template_filename, dialect, 
 	if 'rngseed' in options:
 		cmd.append('-rngseed')
 		cmd.append(str(options['rngseed']))
-	input()
+	# input()
 	print(' '.join(cmd))
-	input()
+	# input()
 	subprocess.run(cmd, cwd = exec_dir)
 
 	# Rename the query instance files.

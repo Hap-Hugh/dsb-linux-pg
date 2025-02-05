@@ -39,28 +39,23 @@
  define MANAGER = range(random(1, 100, uniform), 40);
  define REASON = random(1, 75, uniform);
 
- select
-   min(w_state)
-  ,min(i_item_id)
-  ,min(cs_item_sk)
-  ,min(cs_order_number)
-  ,min(cr_item_sk)
-  ,min(cr_order_number)
- from
-   catalog_sales left outer join catalog_returns on
-       (cs_order_number = cr_order_number
-        and cs_item_sk = cr_item_sk)
-  ,warehouse
-  ,item
-  ,date_dim
- where
- i_item_sk          = cs_item_sk
- and cs_warehouse_sk    = w_warehouse_sk
- and cs_sold_date_sk    = d_date_sk
- and d_date between (cast ('[SALES_DATE]' as date) - interval '30 day')
-                and (cast ('[SALES_DATE]' as date) + interval '30 day') 
- and i_category  = '[CATEGORY]'
- and i_manager_id between [MANAGER.begin] and [MANAGER.end]
- and cs_wholesale_cost between [COST.begin] and [COST.end]
- and cr_reason_sk = [REASON]
-;
+
+SELECT min(w_state) ,
+       min(i_item_id) ,
+       min(cs_item_sk) ,
+       min(cs_order_number) ,
+       min(cr_item_sk) ,
+       min(cr_order_number)
+FROM catalog_sales
+LEFT OUTER JOIN catalog_returns ON (cs_order_number = cr_order_number
+                                    AND cs_item_sk = cr_item_sk) ,warehouse ,
+                                                                  item ,
+                                                                  date_dim
+WHERE i_item_sk = cs_item_sk
+  AND cs_warehouse_sk = w_warehouse_sk
+  AND cs_sold_date_sk = d_date_sk
+  AND d_date BETWEEN (CAST ('[SALES_DATE]' AS date) - interval '30 day') AND (CAST ('[SALES_DATE]' AS date) + interval '30 day')
+  AND i_category = '[CATEGORY]'
+  AND i_manager_id BETWEEN [MANAGER.begin] AND [MANAGER.end]
+  AND cs_wholesale_cost BETWEEN [COST.begin] AND [COST.end]
+  AND cr_reason_sk = [REASON] ;
